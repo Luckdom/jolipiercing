@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jolipiercing studio — Profesionalni piercing v Mariboru</title>
+  <meta name="description" content="Profesionalni piercing v Mariboru. Varno, sterilno, z izkušnjami — studio Jolande Roškar. Samo po predhodnem naročilu." />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink:        '#1C1A19',
+            muted:      '#57534E',
+            line:       '#E8E2DC',
+            cream:      '#F7F3EF',
+            accent:     '#8E2B47',
+            'accent-dk':'#701F36',
+            'accent-soft':'#F7EBEF',
+            gold:       '#C9A227',
+          },
+          fontFamily: {
+            sans: ['Figtree', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            soft: '0 1px 2px rgba(28,26,25,.04), 0 8px 24px rgba(28,26,25,.06)',
+            lift: '0 4px 12px rgba(28,26,25,.06), 0 16px 40px rgba(28,26,25,.10)',
+          },
+          maxWidth: { content: '72rem' },
+        }
+      }
+    }
+  </script>
+
+  <!-- Pisava -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    /* Sidrišča pod fiksno navigacijo */
+    section[id] { scroll-margin-top: 84px; }
+
+    /* Foto placeholder */
+    .ph {
+      background:
+        repeating-linear-gradient(45deg, #EDE9E4 0 12px, #E6E1DB 12px 24px);
+      color: #8A837B;
+    }
+
+    /* Razkrivanje ob drsenju */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* Fokus za tipkovnico */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #8E2B47; outline-offset: 3px; border-radius: 6px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      * { animation: none !important; }
+    }
+  </style>
+</head>
+
+<body class="bg-white text-ink font-sans antialiased pb-16 md:pb-0">
+
+  <!-- Navigacija -->
+  <header id="nav" class="fixed top-0 inset-x-0 z-50 bg-white/85 backdrop-blur-md border-b border-line transition-shadow">
+    <nav class="max-w-content mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="#hero" class="text-lg sm:text-xl font-extrabold tracking-tight text-ink">
+        Joli<span class="text-accent">piercing</span>
+      </a>
+
+      <!-- Namizni meni -->
+      <div class="hidden md:flex items-center gap-7 text-[15px] font-medium text-muted">
+        <a href="#storitve" class="hover:text-accent transition-colors">Storitve</a>
+        <a href="#galerija" class="hover:text-accent transition-colors">Galerija</a>
+        <a href="#o-nas"    class="hover:text-accent transition-colors">O nas</a>
+        <a href="#nega"     class="hover:text-accent transition-colors">Nega</a>
+        <a href="#kontakt"  class="hover:text-accent transition-colors">Kontakt</a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Pokliči -->
+        <a id="nav-call" href="#kontakt" data-tel="tel:+38641512399"
+           class="inline-flex items-center gap-2 rounded-full bg-accent hover:bg-accent-dk text-white text-sm font-semibold px-4 py-2.5 min-h-[44px] shadow-soft transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span class="hidden sm:inline">Pokliči</span>
+        </a>
+
+        <!-- Burger -->
+        <button id="burger" type="button" aria-label="Odpri meni" aria-expanded="false" aria-controls="mobile-menu"
+                class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg text-ink hover:bg-cream transition-colors">
+          <svg id="icon-open" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobilni meni -->
+    <div id="mobile-menu" class="md:hidden hidden border-t border-line bg-white">
+      <div class="px-4 py-3 flex flex-col text-base font-medium text-ink">
+        <a href="#storitve" class="py-3 border-b border-line/70">Storitve</a>
+        <a href="#galerija" class="py-3 border-b border-line/70">Galerija</a>
+        <a href="#o-nas"    class="py-3 border-b border-line/70">O nas</a>
+        <a href="#nega"     class="py-3 border-b border-line/70">Nega</a>
+        <a href="#kontakt"  class="py-3">Kontakt</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="hero" class="relative pt-16">
+      <div class="max-w-content mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center py-14 sm:py-20 lg:py-24">
+        <!-- Besedilo -->
+        <div class="reveal">
+          <span class="inline-flex items-center gap-2 rounded-full bg-accent-soft text-accent text-xs sm:text-sm font-semibold px-3 py-1.5 mb-5">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+            Piercing studio · Maribor
+          </span>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.05] tracking-tight text-ink">
+            Profesionalni piercing v Mariboru
+          </h1>
+
+          <p class="mt-5 text-lg text-muted max-w-xl">
+            Varno, sterilno, z izkušnjami — studio <span class="text-ink font-semibold">Jolande Roškar</span>.
+          </p>
+
+          <!-- Bedž zaupanja (Google ocena) -->
+          <div class="mt-7 inline-flex items-center gap-3 rounded-2xl border border-line bg-white shadow-soft px-4 py-3">
+            <div class="flex items-center gap-0.5 text-gold" aria-hidden="true">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="leading-tight">
+              <div class="font-bold text-ink">4.9 / 5</div>
+              <div class="text-sm text-muted">150+ mnenj na Googlu</div>
+            </div>
+          </div>
+
+          <!-- Gumba -->
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a href="tel:+38641512399"
+               class="inline-flex items-center justify-center gap-2 rounded-full bg-accent hover:bg-accent-dk text-white font-semibold px-6 py-3.5 min-h-[52px] shadow-soft transition-colors">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Pokliči: 041 512 399
+            </a>
+            <a href="#kontakt"
+               class="inline-flex items-center justify-center gap-2 rounded-full bg-white border border-ink/15 hover:border-accent hover:text-accent text-ink font-semibold px-6 py-3.5 min-h-[52px] transition-colors">
+              Naroči se
+            </a>
+          </div>
+
+          <p class="mt-4 text-sm text-muted">Samo po predhodnem naročilu.</p>
+        </div>
+
+        <div class="reveal">
+          <img src="./photospiercing/504334169_10224117591922204_3848268726769083106_n.jpg"
+               alt="Helix in ušesni piercingi z bleščečim certificiranim nakitom"
+               loading="eager"
+               class="w-full aspect-[4/5] sm:aspect-square lg:aspect-[4/5] object-cover rounded-3xl shadow-lift border border-line" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Zakaj Jolie -->
+    <section class="bg-cream border-y border-line">
+      <div class="max-w-content mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        <div class="max-w-2xl reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Zakaj Jolie?</h2>
+          <p class="mt-3 text-muted text-lg">Tisto, kar najpogosteje izpostavijo stranke v ocenah.</p>
+        </div>
+
+        <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <!-- Sterilno -->
+          <div class="reveal group bg-white rounded-2xl border border-line p-6 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-200">
+            <div class="w-12 h-12 rounded-xl bg-accent-soft text-accent flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <h3 class="font-bold text-lg">Sterilno orodje</h3>
+            <p class="mt-2 text-muted text-[15px] leading-relaxed">Sterilni materiali in certificiran nakit pri vsakem posegu.</p>
+          </div>
+          <!-- Svetovanje -->
+          <div class="reveal group bg-white rounded-2xl border border-line p-6 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-200">
+            <div class="w-12 h-12 rounded-xl bg-accent-soft text-accent flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h3 class="font-bold text-lg">Temeljito svetovanje</h3>
+            <p class="mt-2 text-muted text-[15px] leading-relaxed">Pred vsakim piercingom vam vse razložimo in svetujemo.</p>
+          </div>
+          <!-- Čist studio -->
+          <div class="reveal group bg-white rounded-2xl border border-line p-6 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-200">
+            <div class="w-12 h-12 rounded-xl bg-accent-soft text-accent flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z"/><path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8L19 14z"/></svg>
+            </div>
+            <h3 class="font-bold text-lg">Čist in urejen studio</h3>
+            <p class="mt-2 text-muted text-[15px] leading-relaxed">Higiena in čistoča sta vedno na prvem mestu.</p>
+          </div>
+          <!-- Individualni pristop -->
+          <div class="reveal group bg-white rounded-2xl border border-line p-6 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-200">
+            <div class="w-12 h-12 rounded-xl bg-accent-soft text-accent flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <h3 class="font-bold text-lg">Individualni pristop</h3>
+            <p class="mt-2 text-muted text-[15px] leading-relaxed">Prijazno vzdušje in pristop, prilagojen vsaki stranki.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Storitve -->
+    <section id="storitve">
+      <div class="max-w-content mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        <div class="max-w-2xl reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Storitve</h2>
+          <p class="mt-3 text-muted text-lg">Cene se dogovorimo individualno glede na mesto in izbran nakit.</p>
+        </div>
+
+        <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Kartica storitve -->
+          <div class="reveal bg-white rounded-2xl border border-line p-6 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-200">
+            <h3 class="font-bold text-lg">Ušesni meč <span class="text-muted font-medium">(earlobe)</span></h3>
+            <p class="mt-3 text-accent font-semibold">Cena po dogovoru</p>
+          </div>
+          <div class="reveal bg-white rounded-2xl border border-line p-6 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-200">
+            <h3 class="font-bold text-lg">Hrskavica ušesa</h3>
+            <p class="mt-1 text-sm text-muted">helix · tragus · conch · daith · rook</p>
+            <p class="mt-3 text-accent font-semibold">Cena po dogovoru</p>
+          </div>
+          <div class="reveal bg-white rounded-2xl border border-line p-6 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-200">
+            <h3 class="font-bold text-lg">Nos in septum</h3>
+            <p class="mt-3 text-accent font-semibold">Cena po dogovoru</p>
+          </div>
+          <div class="reveal bg-white rounded-2xl border border-line p-6 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-200">
+            <h3 class="font-bold text-lg">Obrvi, ustnice, jezik</h3>
+            <p class="mt-3 text-accent font-semibold">Cena po dogovoru</p>
+          </div>
+          <div class="reveal bg-white rounded-2xl border border-line p-6 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-200">
+            <h3 class="font-bold text-lg">Popek <span class="text-muted font-medium">(navel)</span></h3>
+            <p class="mt-3 text-accent font-semibold">Cena po dogovoru</p>
+          </div>
+          <div class="reveal bg-white rounded-2xl border border-line p-6 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-200">
+            <h3 class="font-bold text-lg">Bradavice, intimni, dermal</h3>
+            <p class="mt-3 text-accent font-semibold">Cena po dogovoru</p>
+          </div>
+          <div class="reveal bg-white rounded-2xl border border-line p-6 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-200 sm:col-span-2 lg:col-span-1">
+            <h3 class="font-bold text-lg">Menjava nakita</h3>
+            <p class="mt-3 text-accent font-semibold">Cena po dogovoru</p>
+          </div>
+        </div>
+
+        <!-- Kaj je vključeno -->
+        <div class="reveal mt-8 rounded-3xl bg-cream border border-line p-6 sm:p-8">
+          <h3 class="text-xl font-bold">Kaj je vključeno v ceno?</h3>
+          <ul class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            <li class="flex items-start gap-3"><span class="mt-0.5 text-accent shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Svetovanje pred piercingom</span></li>
+            <li class="flex items-start gap-3"><span class="mt-0.5 text-accent shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Sterilni materiali in orodje</span></li>
+            <li class="flex items-start gap-3"><span class="mt-0.5 text-accent shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Kakovosten nakit</span></li>
+            <li class="flex items-start gap-3"><span class="mt-0.5 text-accent shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Navodila za nego</span></li>
+            <li class="flex items-start gap-3"><span class="mt-0.5 text-accent shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Kontrolni pregled</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galerija -->
+    <section id="galerija" class="bg-cream border-y border-line">
+      <div class="max-w-content mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        <div class="max-w-2xl reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Galerija</h2>
+          <p class="mt-3 text-muted text-lg">Vpogled v studio in naše delo.</p>
+        </div>
+
+        <div class="mt-10 grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          <img src="./photospiercing/IMG_4395.JPG" alt="Septum piercing z okrasnim nakitom" loading="lazy" class="aspect-square sm:aspect-[4/3] w-full object-cover rounded-2xl border border-line" />
+          <img src="./photospiercing/IMG_4393.JPG" alt="Velika izbira certificiranega nakita za piercing" loading="lazy" class="aspect-square sm:aspect-[4/3] w-full object-cover rounded-2xl border border-line" />
+          <img src="./photospiercing/IMG_4396.PNG" alt="Piercing spodnje ustnice" loading="lazy" class="aspect-square sm:aspect-[4/3] w-full object-cover rounded-2xl border border-line" />
+          <img src="./photospiercing/699310490_2033905774554949_3743785293266924924_n.jpg" alt="Obrazni piercing — obrv, nos in ustnica" loading="lazy" class="aspect-square sm:aspect-[4/3] w-full object-cover rounded-2xl border border-line" />
+          <div class="ph aspect-square sm:aspect-[4/3] rounded-2xl border border-line flex flex-col items-center justify-center text-center p-3"><svg class="w-7 h-7 sm:w-9 sm:h-9 mb-2 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="text-xs sm:text-sm font-semibold">FOTO: notranjost studia</span></div>
+          <div class="ph aspect-square sm:aspect-[4/3] rounded-2xl border border-line flex flex-col items-center justify-center text-center p-3"><svg class="w-7 h-7 sm:w-9 sm:h-9 mb-2 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="text-xs sm:text-sm font-semibold">FOTO: delovni prostor</span></div>
+        </div>
+
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="https://www.instagram.com/jolipiercing/" target="_blank" rel="noopener"
+             class="inline-flex items-center justify-center gap-2 rounded-full bg-white border border-ink/15 hover:border-accent hover:text-accent text-ink font-semibold px-6 py-3 min-h-[44px] transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5a4.25 4.25 0 0 0 4.25 4.25h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM17.5 5.6a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3z"/></svg>
+            Poglej več na Instagramu
+          </a>
+          <a href="https://www.facebook.com/piercing.joli/" target="_blank" rel="noopener"
+             class="inline-flex items-center justify-center gap-2 rounded-full bg-white border border-ink/15 hover:border-accent hover:text-accent text-ink font-semibold px-6 py-3 min-h-[44px] transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>
+            Poglej več na Facebooku
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mnenja -->
+    <section>
+      <div class="max-w-content mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        <div class="max-w-2xl reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Mnenja strank</h2>
+          <div class="mt-3 flex items-center gap-2 text-muted">
+            <span class="flex items-center gap-0.5 text-gold" aria-hidden="true">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+            4.9 / 5 · 150+ mnenj na Googlu
+          </div>
+        </div>
+
+        <div class="mt-10 grid sm:grid-cols-2 gap-5">
+          <figure class="reveal bg-white rounded-2xl border border-line p-6 shadow-soft">
+            <div class="flex items-center gap-0.5 text-gold mb-3" aria-label="Ocena 5 od 5"><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <blockquote class="text-ink leading-relaxed">„Sterilno orodje. Studio zelo čist in urejen. Lepo razloži. Dobiš navodila za domov.”</blockquote>
+            <figcaption class="mt-4 font-semibold text-muted">— Lina</figcaption>
+          </figure>
+
+          <figure class="reveal bg-white rounded-2xl border border-line p-6 shadow-soft">
+            <div class="flex items-center gap-0.5 text-gold mb-3" aria-label="Ocena 5 od 5"><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <blockquote class="text-ink leading-relaxed">„Zelo profesionalno, natančno in nežno piercanje. Material s certifikati, čistoča in higiena je na vrhu.”</blockquote>
+            <figcaption class="mt-4 font-semibold text-muted">— Lea K.</figcaption>
+          </figure>
+
+          <figure class="reveal bg-white rounded-2xl border border-line p-6 shadow-soft">
+            <div class="flex items-center gap-0.5 text-gold mb-3" aria-label="Ocena 5 od 5"><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <blockquote class="text-ink leading-relaxed">„Najbolj prijazna, super razlaga, velika izbira nakita.”</blockquote>
+            <figcaption class="mt-4 font-semibold text-muted">— CrazyB0</figcaption>
+          </figure>
+
+          <figure class="reveal bg-white rounded-2xl border border-line p-6 shadow-soft">
+            <div class="flex items-center gap-0.5 text-gold mb-3" aria-label="Ocena 5 od 5"><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <blockquote class="text-ink leading-relaxed">„Top izkušnja, bil prvič verjetno pa ne zadnjič.”</blockquote>
+            <figcaption class="mt-4 font-semibold text-muted">— Jani S.</figcaption>
+          </figure>
+        </div>
+
+        <div class="mt-8">
+          <a href="https://www.google.com/maps/search/?api=1&query=Jolipiercing+studio+Maribor" target="_blank" rel="noopener"
+             class="inline-flex items-center gap-2 rounded-full bg-white border border-ink/15 hover:border-accent hover:text-accent text-ink font-semibold px-6 py-3 min-h-[44px] transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Vse ocene na Googlu
+          </a>
+          <p class="mt-4 text-sm text-muted">Ocene so povzete z Google Maps.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nega -->
+    <section id="nega" class="bg-cream border-y border-line">
+      <div class="max-w-content mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        <div class="max-w-2xl reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Nega po pirsanju</h2>
+          <p class="mt-3 text-muted text-lg">Nekaj osnovnih napotkov za prve dni.</p>
+        </div>
+
+        <ul class="reveal mt-8 grid sm:grid-cols-2 gap-x-8 gap-y-4 max-w-3xl">
+          <li class="flex items-start gap-3"><span class="mt-0.5 text-accent shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Redno čiščenje piercinga</span></li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 text-accent shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Izogibajte se dotikanju z nečistimi rokami</span></li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 text-accent shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Upoštevajte navodila, ki jih prejmete v studiu</span></li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 text-accent shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Ob kakršnihkoli težavah se obrnite na studio</span></li>
+        </ul>
+
+        <!-- Opozorilna plašča -->
+        <div class="reveal mt-8 flex items-start gap-3 rounded-2xl bg-white border border-accent/25 p-5 max-w-3xl shadow-soft">
+          <span class="text-accent shrink-0 mt-0.5"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></span>
+          <p class="text-ink font-medium">Podrobna navodila za nego prejmete ob vsakem piercingu v studiu.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- O nas -->
+    <section id="o-nas">
+      <div class="max-w-content mx-auto px-4 sm:px-6 py-16 sm:py-20 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+        <div class="reveal order-2 lg:order-1">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">O nas</h2>
+          <p class="mt-5 text-lg text-muted leading-relaxed">
+            Jolipiercing studio je v Mariboru prisoten že <span class="text-ink font-semibold">več kot 25 let</span>
+            in se ukvarja izključno s piercingom — ne gre za tetovažni salon, kjer je piercing zgolj postranska dejavnost.
+          </p>
+          <p class="mt-4 text-lg text-muted leading-relaxed">
+            Uporabljamo izključno certificiran nakit in sterilne materiale, vsako stranko pa pred posegom
+            temeljito posvetujemo in ji razložimo postopek nege. Z dolgoletnimi izkušnjami skrbimo za varno,
+            čisto in prijetno izkušnjo pirsanja.
+          </p>
+
+          <h3 class="mt-8 font-bold text-lg">Naša filozofija</h3>
+          <div class="mt-4 flex flex-wrap gap-2.5">
+            <span class="rounded-full bg-accent-soft text-accent font-semibold text-sm px-4 py-2">Higiena</span>
+            <span class="rounded-full bg-accent-soft text-accent font-semibold text-sm px-4 py-2">Varnost</span>
+            <span class="rounded-full bg-accent-soft text-accent font-semibold text-sm px-4 py-2">Udobje</span>
+            <span class="rounded-full bg-accent-soft text-accent font-semibold text-sm px-4 py-2">Individualni pristop</span>
+          </div>
+        </div>
+
+        <div class="reveal order-1 lg:order-2">
+          <img src="./photospiercing/IMG_4392.JPG"
+               alt="Skrbno urejen ušesni piercing — rezultat dela v studiu"
+               loading="lazy"
+               class="w-full aspect-[4/5] max-w-md mx-auto object-cover rounded-3xl border border-line shadow-lift" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section id="kontakt" class="bg-ink text-white">
+      <div class="max-w-content mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        <div class="max-w-2xl reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Naročite se na piercing</h2>
+          <p class="mt-3 text-white/70 text-lg">Pokličite nas — z veseljem vam svetujemo in se dogovorimo za termin.</p>
+        </div>
+
+        <div class="mt-10 grid lg:grid-cols-2 gap-6 lg:gap-10">
+          <!-- Kontaktni podatki -->
+          <div class="reveal space-y-4">
+            <!-- Telefona -->
+            <a href="tel:+38641512399" class="flex items-center gap-4 rounded-2xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 p-5 min-h-[64px] transition-colors">
+              <span class="w-11 h-11 rounded-xl bg-accent flex items-center justify-center shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+              <span><span class="block text-sm text-white/60">Pokliči</span><span class="text-xl font-bold">+386 41 512 399</span></span>
+            </a>
+            <a href="tel:+38670683673" class="flex items-center gap-4 rounded-2xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 p-5 min-h-[64px] transition-colors">
+              <span class="w-11 h-11 rounded-xl bg-accent flex items-center justify-center shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+              <span><span class="block text-sm text-white/60">Pokliči</span><span class="text-xl font-bold">+386 70 683 673</span></span>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/jolipiercing/" target="_blank" rel="noopener" class="flex items-center gap-4 rounded-2xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 p-5 min-h-[64px] transition-colors">
+              <span class="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5a4.25 4.25 0 0 0 4.25 4.25h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM17.5 5.6a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3z"/></svg></span>
+              <span><span class="block text-sm text-white/60">Sledi nam</span><span class="text-lg font-bold">@jolipiercing</span></span>
+            </a>
+
+            <!-- Facebook Messenger -->
+            <a href="https://www.facebook.com/piercing.joli/" target="_blank" rel="noopener" class="flex items-center gap-4 rounded-2xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 p-5 min-h-[64px] transition-colors">
+              <span class="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg></span>
+              <span><span class="block text-sm text-white/60">Napiši nam</span><span class="text-lg font-bold">Facebook Messenger</span></span>
+            </a>
+
+            <!-- Naslov -->
+            <div class="flex items-start gap-4 rounded-2xl bg-white/[0.06] border border-white/10 p-5">
+              <span class="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <span><span class="block text-sm text-white/60">Naslov</span><span class="text-lg font-semibold">Nazorjeva ulica 16, 2000 Maribor</span></span>
+            </div>
+
+            <!-- Delovni čas -->
+            <div class="flex items-start gap-4 rounded-2xl bg-white/[0.06] border border-white/10 p-5">
+              <span class="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+              <div class="w-full">
+                <span class="block text-sm text-white/60 mb-2">Delovni čas</span>
+                <div class="flex justify-between max-w-xs"><span class="text-white/80">pon–pet</span><span class="font-semibold">13:00–18:00</span></div>
+                <div class="flex justify-between max-w-xs mt-1"><span class="text-white/80">sob–ned</span><span class="font-semibold">zaprto</span></div>
+              </div>
+            </div>
+
+            <!-- Opozorilo -->
+            <div class="rounded-2xl bg-accent/15 border border-accent/40 p-5">
+              <p class="font-bold text-lg flex items-center gap-2">
+                <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+                Pirsanje samo po predhodnem naročilu
+              </p>
+            </div>
+          </div>
+
+          <!-- Zemljevid -->
+          <div class="reveal">
+            <div class="rounded-3xl overflow-hidden border border-white/10 shadow-lift h-full min-h-[340px]">
+              <iframe
+                title="Lokacija — Jolipiercing studio, Nazorjeva ulica 16, Maribor"
+                src="https://maps.google.com/maps?q=46.5512837,15.669779&z=16&hl=sl&output=embed"
+                class="w-full h-full min-h-[340px] border-0"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Naslednji koraki -->
+  <section aria-label="Opomba za lastnico studia" class="bg-indigo-50 border-y-2 border-dashed border-indigo-300">
+    <div class="max-w-content mx-auto px-4 sm:px-6 py-14">
+      <div class="reveal max-w-3xl">
+        <span class="inline-flex items-center gap-2 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wide px-3 py-1.5 mb-4">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          Opomba za lastnico
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-indigo-950">Naslednji koraki</h2>
+        <p class="mt-3 text-indigo-900/80 text-lg">Za pripravo končne spletne strani potrebujemo od vas le nekaj podatkov:</p>
+
+        <ul class="mt-6 grid sm:grid-cols-2 gap-x-8 gap-y-3 text-indigo-950">
+          <li class="flex items-start gap-3"><span class="mt-0.5 text-indigo-600 shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Fotografije studia in del (iz Instagrama/Facebooka ali nove)</span></li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 text-indigo-600 shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Cenik storitev (ali potrditev, da ostane »po dogovoru«)</span></li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 text-indigo-600 shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Potrditev naslova in delovnega časa</span></li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 text-indigo-600 shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Potrditev leta ustanovitve in opisa studia</span></li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 text-indigo-600 shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Portret mojstrice za razdelek »O nas«</span></li>
+          <li class="flex items-start gap-3"><span class="mt-0.5 text-indigo-600 shrink-0"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Morebitni certifikati ali priznanja</span></li>
+        </ul>
+
+        <p class="mt-7 text-indigo-950 font-semibold">Ko prejmemo te podatke, pripravimo končno različico spletne strani.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-ink text-white/70 border-t border-white/10">
+    <div class="max-w-content mx-auto px-4 sm:px-6 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+      <div>
+        <a href="#hero" class="text-lg font-extrabold text-white">Joli<span class="text-accent">piercing</span> studio</a>
+        <p class="mt-2 text-sm">Nazorjeva ulica 16, 2000 Maribor</p>
+        <a href="tel:+38641512399" class="mt-1 inline-block text-sm hover:text-white transition-colors">+386 41 512 399</a>
+      </div>
+      <div class="flex flex-col sm:items-end gap-3">
+        <a href="https://www.instagram.com/jolipiercing/" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 text-sm hover:text-white transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5a4.25 4.25 0 0 0 4.25 4.25h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM17.5 5.6a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3z"/></svg>
+          instagram.com/jolipiercing
+        </a>
+        <a href="https://www.facebook.com/piercing.joli/" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 text-sm hover:text-white transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>
+          facebook.com/piercing.joli
+        </a>
+        <p class="text-xs text-white/50">© <span id="year">2026</span> Jolipiercing studio. Vse pravice pridržane.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Demo opomba -->
+  <div class="bg-indigo-950 text-indigo-200/80 text-center text-sm px-4 py-4">
+    To je demo različica. Končna spletna stran bo postavljena na lastno domeno (npr. jolipiercing.com),
+    z možnostjo enostavnega urejanja vsebine, hitrim nalaganjem in prilagojenim dizajnom.
+  </div>
+
+  <!-- Mobilni gumb za klic -->
+  <a href="tel:+38641512399"
+     class="md:hidden fixed bottom-0 inset-x-0 z-50 bg-accent hover:bg-accent-dk text-white font-bold text-center py-4 min-h-[56px] flex items-center justify-center gap-2 shadow-[0_-4px_20px_rgba(0,0,0,.12)] transition-colors">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Pokliči: 041 512 399
+  </a>
+
+  <!-- Skripta -->
+  <script>
+    // Tekoče leto
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Na dotik napravah gumb kliče, na namiznih pelje na kontakt
+    const navCall = document.getElementById('nav-call');
+    const isPhone = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+                 || /Android|iPhone|iPad|iPod|Mobile|Windows Phone/i.test(navigator.userAgent);
+    if (navCall && isPhone) {
+      navCall.setAttribute('href', navCall.dataset.tel);
+    }
+
+    // Burger meni
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+
+    function closeMenu() {
+      menu.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+      burger.setAttribute('aria-expanded', 'false');
+      burger.setAttribute('aria-label', 'Odpri meni');
+    }
+    function toggleMenu() {
+      const isHidden = menu.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden', !isHidden);
+      iconClose.classList.toggle('hidden', isHidden);
+      burger.setAttribute('aria-expanded', String(!isHidden));
+      burger.setAttribute('aria-label', isHidden ? 'Odpri meni' : 'Zapri meni');
+    }
+    burger.addEventListener('click', toggleMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    // Senca navigacije ob drsenju
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('shadow-soft', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Razkrivanje ob drsenju
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>
